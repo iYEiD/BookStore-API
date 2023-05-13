@@ -19,6 +19,11 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
+    @GetMapping("/test")
+    public String test() {
+        return "Hello World";
+    }
+
     @GetMapping("")
     public List<Book> getAllBooks() {
         return bookService.getAllBooks();
@@ -29,15 +34,15 @@ public class BookController {
         return bookService.getBookById(id);
     }
 
-    @PostMapping("")
+    @PostMapping("/addBook")
     public Book addBook(@RequestBody Book book) {
         return bookService.addBook(book);
     }
 
-    @PutMapping("/{id}")
-    public Book updateBook(@PathVariable String id, @RequestBody Book book) {
-        return bookService.updateBook(id, book);
-    }
+    // @PutMapping("/{id}")
+    // public Book updateBook(@PathVariable String id, @RequestBody Book book) {
+    //     return bookService.updateBook(id, book);
+    // }
 
     @DeleteMapping("/{id}")
     public void deleteBook(@PathVariable String id) {
