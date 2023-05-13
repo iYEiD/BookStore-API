@@ -1,5 +1,7 @@
 package bookstore.api.v1.Controller;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +23,7 @@ public class BookController {
 
     @GetMapping("/test")
     public String test() {
-        return "Hello World";
+        return "Test Passed";
     }
 
     @GetMapping("")
@@ -30,7 +32,7 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public Book getBookById(@PathVariable String id) {
+    public Optional<Book> getBookById(@PathVariable String id) {
         return bookService.getBookById(id);
     }
 
@@ -39,13 +41,18 @@ public class BookController {
         return bookService.addBook(book);
     }
 
-    // @PutMapping("/{id}")
-    // public Book updateBook(@PathVariable String id, @RequestBody Book book) {
-    //     return bookService.updateBook(id, book);
-    // }
+    @PutMapping("/{id}")
+    public Book updateBook(@PathVariable String id, @RequestBody Book book) {
+        return bookService.updateBook(id, book);
+    }
 
     @DeleteMapping("/{id}")
     public void deleteBook(@PathVariable String id) {
         bookService.deleteBookID(id);
+    }
+
+    @DeleteMapping("/deleteAll")
+    public void deleteAllBooks() {
+        bookService.deleteAllBooks();
     }
 }

@@ -1,6 +1,8 @@
 package bookstore.api.v1.Repository;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import bookstore.api.v1.Model.Book;
@@ -10,7 +12,7 @@ public interface BookRepository extends MongoRepository<Book, String> {
 
         public Book save(Book book);
 
-        public Book findById(String id);
+        public Optional<Book> findById(String id);
 
         public List<Book> findAll();
         // public List<Book> findByTitle(String title);

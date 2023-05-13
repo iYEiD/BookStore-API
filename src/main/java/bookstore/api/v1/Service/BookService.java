@@ -1,5 +1,6 @@
 package bookstore.api.v1.Service;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,13 @@ public List<Book> getAllBooks() {
 
 }
 
-public Book getBookById(String id) {
-    return bookRepository.findById(id);
+public Optional<Book> getBookById(String id) {
+    Optional<Book> bookOptional = bookRepository.findById(id);
+
+    if (bookOptional.isPresent())  return bookOptional;
+    else return null;
+    
+    
 }
 
 // public List<Book> searchBooksTitled(String title) {
@@ -39,10 +45,10 @@ public Book addBook(Book book) {
     return bookRepository.save(book);
 }
 
-// public Book updateBook(String id, Book book) {
-//     book.setId(id);
-//     return bookRepository.save(book);
-// }
+public Book updateBook(String id, Book book) {
+    book.setId(id);
+    return bookRepository.save(book);
+}
 
 public void deleteBookID(String id) {
     bookRepository.deleteById(id);
@@ -50,6 +56,10 @@ public void deleteBookID(String id) {
 // public void deleteBookTitled(String title) {
 //     bookRepository.deleteByTitle(title);
 // }
+
+public void deleteAllBooks() {
+    bookRepository.deleteAll();
+}
 
 }
 
