@@ -15,13 +15,8 @@ public interface BookRepository extends MongoRepository<Book, String> {
         public Optional<Book> findById(String id);
 
         public List<Book> findAll();
-        // public List<Book> findByTitle(String title);
-        // public List<Book> findByAuthor(String author);
-
-
 
         public void deleteById(String id);
 
-        // public void deleteByTitle(String title);
         public void deleteAll();
 }

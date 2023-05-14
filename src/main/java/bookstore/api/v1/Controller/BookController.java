@@ -1,7 +1,7 @@
 package bookstore.api.v1.Controller;
+
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import bookstore.api.v1.Service.BookService;
 import bookstore.api.v1.Model.Book;
@@ -62,7 +61,8 @@ public class BookController {
     }
 
     @GetMapping("/paged/{page}/{size}/{sortField}/{sortOrder}")
-    public ResponseEntity<List<Book>> getAllBooks(@PathVariable int page,@PathVariable int size,@PathVariable String sortField, @PathVariable String sortOrder) {
+    public ResponseEntity<List<Book>> getAllBooks(@PathVariable int page, @PathVariable int size,
+            @PathVariable String sortField, @PathVariable String sortOrder) {
 
         Page<Book> bookPage = bookService.getAllBooks(page, size, sortField, sortOrder);
 
@@ -79,6 +79,7 @@ public class BookController {
     public List<Book> searchBooksTitled(@PathVariable String title) {
         return bookService.searchBooksTitled(title);
     }
+
     @GetMapping("/searchauthor/{author}")
     public List<Book> searchBooksAuthored(@PathVariable String author) {
         return bookService.searchBooksAuthored(author);
