@@ -74,4 +74,14 @@ public class BookController {
 
         return new ResponseEntity<>(books, responseHeaders, HttpStatus.OK);
     }
+
+    @GetMapping("/searchtitle/{title}")
+    public List<Book> searchBooksTitled(@PathVariable String title) {
+        return bookService.searchBooksTitled(title);
+    }
+    @GetMapping("/searchauthor/{author}")
+    public List<Book> searchBooksAuthored(@PathVariable String author) {
+        return bookService.searchBooksAuthored(author);
+    }
+
 }

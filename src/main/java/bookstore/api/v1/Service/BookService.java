@@ -1,4 +1,5 @@
 package bookstore.api.v1.Service;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,12 +57,44 @@ public Optional<Book> getBookById(String id) {
     
 }
 
-// public List<Book> searchBooksTitled(String title) {
-//     return bookRepository.findByTitle(title);
-// }
-// public List<Book> searchAuthorBooks(String author) {
-//     return bookRepository.findByAuthor(author);
-// }
+public List<Book> searchBooksTitled(String title) {
+    List<Book> allBooks = bookRepository.findAll();
+    List<Book> booksTitled = new ArrayList<Book>();
+    if(title.isEmpty()) {
+        System.out.println("No title entered");
+        return null;
+    }
+    
+    for (Book book : allBooks) {
+        if (book.getTitle().equalsIgnoreCase(title)) {
+            booksTitled.add(book);
+        }
+    }
+    if(booksTitled.isEmpty()) {
+        System.out.println("No books found");
+        return null;
+    }
+    return booksTitled;
+ }
+ public List<Book> searchBooksAuthored(String author) {
+    List<Book> allBooks = bookRepository.findAll();
+    List<Book> authorBooks = new ArrayList<Book>();
+    if(author.isEmpty()) {
+        System.out.println("No author entered");
+        return null;
+    }
+    
+    for (Book book : allBooks) {
+        if (book.getAuthor().equalsIgnoreCase(author)) {
+            authorBooks.add(book);
+        }
+    }
+    if(authorBooks.isEmpty()) {
+        System.out.println("No books found");
+        return null;
+    }
+    return authorBooks;
+ }
 
 public Book addBook(Book book) {
     if (bookRepository.findById(book.getId()).isPresent()) {
