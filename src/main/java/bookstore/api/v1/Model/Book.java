@@ -66,6 +66,11 @@ public boolean getAvailability(){
     return availability;
 }
 
+public void setAvailability(){
+    if(this.stock <= 0) this.availability = false;
+    else this.availability = true;
+}
+
 public void setAvailability(boolean availability){
     this.availability = availability;
 }

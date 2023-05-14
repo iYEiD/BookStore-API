@@ -42,15 +42,20 @@ public Optional<Book> getBookById(String id) {
 // }
 
 public Book addBook(Book book) {
+    if (bookRepository.findById(book.getId()).isPresent()) return null;
+    if(book.getTitle().isEmpty() || book.getAuthor().isEmpty() || book.getPrice() <=0 || book.getStock() < 0 ) return null;
+    book.setAvailability();
     return bookRepository.save(book);
 }
 
 public Book updateBook(String id, Book book) {
-    book.setId(id);
+    if (bookRepository.findById(id).isEmpty()) return null;
+    bookRepository.deleteById(id);
     return bookRepository.save(book);
 }
 
 public void deleteBookID(String id) {
+    if (bookRepository.findById(id).isEmpty()) return;
     bookRepository.deleteById(id);
 }
 // public void deleteBookTitled(String title) {
@@ -58,6 +63,7 @@ public void deleteBookID(String id) {
 // }
 
 public void deleteAllBooks() {
+    if(bookRepository.findAll().isEmpty()) return;
     bookRepository.deleteAll();
 }
 
