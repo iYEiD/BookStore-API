@@ -23,6 +23,7 @@ private BookRepository bookRepository;
 public List<Book> getAllBooks() {
 
     if (bookRepository.findAll().isEmpty()) {
+        System.out.println("No books found");
         return null;
     }
     return bookRepository.findAll();
@@ -48,7 +49,9 @@ public Optional<Book> getBookById(String id) {
     Optional<Book> bookOptional = bookRepository.findById(id);
 
     if (bookOptional.isPresent())  return bookOptional;
-    else return null;
+    else {
+        System.out.println("Book not found");
+        return null;}
     
     
 }
@@ -61,20 +64,26 @@ public Optional<Book> getBookById(String id) {
 // }
 
 public Book addBook(Book book) {
-    if (bookRepository.findById(book.getId()).isPresent()) return null;
+    if (bookRepository.findById(book.getId()).isPresent()) {
+        System.out.println("Book already exists");
+        return null;}
     if(book.getTitle().isEmpty() || book.getAuthor().isEmpty() || book.getPrice() <=0 || book.getStock() < 0 ) return null;
     book.setAvailability();
     return bookRepository.save(book);
 }
 
 public Book updateBook(String id, Book book) {
-    if (bookRepository.findById(id).isEmpty()) return null;
+    if (bookRepository.findById(id).isEmpty()) {
+        System.out.println("Book not found");
+        return null;}
     bookRepository.deleteById(id);
     return bookRepository.save(book);
 }
 
 public void deleteBookID(String id) {
-    if (bookRepository.findById(id).isEmpty()) return;
+    if (bookRepository.findById(id).isEmpty()) {
+        System.out.println("Book not found");
+        return;}
     bookRepository.deleteById(id);
 }
 // public void deleteBookTitled(String title) {
@@ -82,8 +91,11 @@ public void deleteBookID(String id) {
 // }
 
 public void deleteAllBooks() {
-    if(bookRepository.findAll().isEmpty()) return;
+    if(bookRepository.findAll().isEmpty()){
+        System.out.println("No books to delete");
+        return;}
     bookRepository.deleteAll();
+    System.out.println("All books deleted");
 }
 
 
